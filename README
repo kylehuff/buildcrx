@@ -1,0 +1,1 @@
+Standalone binary for Windows/Linux/Mac to pack signed chrome extension without needing the chrome binary (to be called from a build process)
