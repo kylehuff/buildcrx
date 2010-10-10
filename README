@@ -10,11 +10,14 @@ Standalone binary for Windows/Linux to RSA sign and pack a zip-file containing c
 
 Statically includes libssl from the OpenSSL project;
 
-OpenSSL
+Running/Options
 -----------
-OpenSSL version 1.0.0a
-Compiled linux libraries using gcc with configure flags: "no-idea no-mdc2 no-rc5"
-Cross-compiled windows dlls using mingw with configure flags "no-idea no-mdc2 no-rc5 static mingw:i586-mingw32msvc-gcc"
+buildcrx accepts 3 arguments -
+	The zipfile (a normal zipfile containing the contents of your extension directory)
+	The Private Key file used for signing in PEM format.
+	The output path to place the signed .crx packed extension - if the output path is not specified it will create the .crx file in the same directory as the zipfile.
+
+buildcrx <ZIP file> <PEM file> (optional <OUTPUT PATH/FILE>)
 
 Building
 ----------
@@ -25,3 +28,9 @@ To build on a windows machine, either modify the makefile to your needs, or in t
 gcc -L libs/openssl -I include/openssl/winnt_x86-msvc -g -Wall -o bin/winnt_x86-msvc/buildcrx.exe buildcrx.c -lm -DDEBUG -lcrypto -lgdi32
 
 Then copy bin/winnt_x86-msvc/buildcrx.exe to where you want to use it.
+
+OpenSSL
+-----------
+OpenSSL version 1.0.0a
+Compiled linux libraries using gcc with configure flags: "no-idea no-mdc2 no-rc5"
+Cross-compiled windows dlls using mingw with configure flags "no-idea no-mdc2 no-rc5 static mingw:i586-mingw32msvc-gcc"
