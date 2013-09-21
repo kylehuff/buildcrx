@@ -159,7 +159,7 @@ int main(int argc, char *argv[])
 		
 		// Put the contents of the zipfile into the CRX extension package
 		while (( zcontents = fgetc(zinput)) != EOF) {
-			fprintf(output, "%c", zcontents );
+			fprintf(output, "%zu", zcontents );
 		}
 
 		printf("Content Size: %i (%4.2f KB)\n", (int)content_len, (float)content_len/1024.0);
