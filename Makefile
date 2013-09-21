@@ -1,6 +1,11 @@
 CC = gcc
 ifeq ($(CC),gcc)
-	DISTDIR=linux_x86-gcc3
+	LBITS := $(shell getconf LONG_BIT)
+	ifeq ($(LBITS),64)
+		DISTDIR=linux_x86_64-gcc3
+	else
+		DISTDIR=linux_x86-gcc3
+	endif
 	EXT=
 else
 	DISTDIR=winnt_x86-msvc
@@ -11,7 +16,7 @@ LIBDIR=libs/openssl/${DISTDIR}
 INCLUDE=include/openssl
 CFLAGS = -L ${LIBDIR} -I ${INCLUDE} -g -Wall
 ifeq ($(CC),gcc)
-	LDFLAGS = -lm -DDEBUG -ldl -lcrypto
+	LDFLAGS = -lm -DDEBUG -lcrypto -ldl
 else
 	LDFLAGS = -lm -DDEBUG -lcrypto -lgdi32
 endif
