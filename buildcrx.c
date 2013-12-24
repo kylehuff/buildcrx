@@ -30,16 +30,16 @@ int main(int argc, char *argv[])
 		printf( "usage: %s <ZIP file> <PEM file> (optional <OUTPUT PATH/FILE>)\n", argv[0] );
 		return 0;
 	}
-	
-	printf("Bulding a test ZIP file\n");
-	
+
+	printf("Bulding ZIP file\n");
+
 	// pemfile is the PEM private key specified by the command line
-	FILE *pemfile = fopen( argv[2], "rb");
+	FILE *pemfile = fopen(argv[2], "rb");
 	if (!pemfile) {
 		printf("Error opening PEM key file \"%s\"\n", argv[2]);
 		return 1;
 	}
-	
+
     char dst[30];
     strncpy(dst,argv[1],strlen(argv[1])-4);
     char* filename = (char*) dst;
@@ -50,7 +50,6 @@ int main(int argc, char *argv[])
 		printf("error opening zip file \"%s\"\n", argv[1]);
 		return 2;
 	} else {
-
 		if (argc < 4) {
 			strcat(filename, ".crx");
 			printf("strcat: %s\n", filename);
@@ -65,8 +64,8 @@ int main(int argc, char *argv[])
 		SHA_CTX sha1;
 		byte digest[SHA_DIGEST_LENGTH];
 		SHA1_Init(&sha1);
-		char buff[16384];
-		size_t zcontents;
+		char buff[256];
+		int zcontents;
 		size_t content_len = 0;
 		while ((zcontents = fread(buff, 1, sizeof(buff), zinput)) > 0) {
 			SHA1_Update (&sha1, buff, (int)zcontents);
@@ -95,7 +94,7 @@ int main(int argc, char *argv[])
 		BIO_free_all(bio);
 		if(publicKey == NULL)
 		{
-			printf("Unable to extract the PublicKey from the PrivateKey data");
+			printf("Unable to extract the PublicKey from the PrivateKey data\n");
 			ERR_print_errors_fp(stdout);
 			return 5;
 		}
@@ -123,13 +122,13 @@ int main(int argc, char *argv[])
 		// Create an array to hold the header data
 		// Array = <VERSION>, <PublicKey Length>, <Signature Length>
 		signed long header[3]={0002, derlen, sig_len};
-		
+
 		// Put the file MAGIC into output
 		fprintf(output,"%s","Cr24");
-		
+
 		unsigned char byteArray[4];
 		int headerSize = sizeof(header)/sizeof(header[0]);
-		
+
 		// Convert the header and pack into the output file
 		int i = 0;
 		for(i=0; i < headerSize; i++){
@@ -137,7 +136,6 @@ int main(int argc, char *argv[])
 			byteArray[1] = (char)((header[i] >> 8) & 0XFF);
 			byteArray[2] = (char)((header[i] >> 16) & 0xFF);
 			byteArray[3] = (char)((header[i] >> 24) & 0xFF);
-
 			fprintf(output, "%c%c%c%c", byteArray[0], byteArray[1], byteArray[2], byteArray[3]);
 		}
 
@@ -150,16 +148,16 @@ int main(int argc, char *argv[])
 		for(i=0; i < sig_len; i++){
 			fprintf(output, "%c", (char)((sig[i] & 0XFF)));
 		}
-		
+
 		// Display the PublicKey used to sign the CRX extension package
 		PEM_write_RSA_PUBKEY(stdout, publicKey);
 
 		// Rewind the zipfile
 		rewind(zinput);
-		
+
 		// Put the contents of the zipfile into the CRX extension package
 		while (( zcontents = fgetc(zinput)) != EOF) {
-			fprintf(output, "%zu", zcontents );
+			fprintf(output, "%c", zcontents );
 		}
 
 		printf("Content Size: %i (%4.2f KB)\n", (int)content_len, (float)content_len/1024.0);
