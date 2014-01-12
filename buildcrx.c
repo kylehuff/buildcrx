@@ -40,9 +40,9 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
-    char dst[30];
-    strncpy(dst,argv[1],strlen(argv[1])-4);
-    char* filename = (char*) dst;
+	char dst[30];
+	strncpy(dst,argv[1],strlen(argv[1])-4);
+	char* filename = (char*) dst;
 
 	// zinput is the zip file to sign and pack into our signed CRX extension package
 	FILE *zinput = fopen(argv[1], "rb");
@@ -73,14 +73,14 @@ int main(int argc, char *argv[])
 		}
 		SHA1_Final(digest, &sha1);
 
-        RSA* privateKey = NULL;
-        RSA* publicKey = NULL;
+		RSA* privateKey = NULL;
+		RSA* publicKey = NULL;
 
-        privateKey = PEM_read_RSAPrivateKey (pemfile, NULL, NULL, NULL);
-        if (!privateKey) {
-        	printf("Error getting private key\n");
-        	return 3;
-        }
+		privateKey = PEM_read_RSAPrivateKey (pemfile, NULL, NULL, NULL);
+		if (!privateKey) {
+			printf("Error getting private key\n");
+			return 3;
+		}
 		unsigned long check = RSA_check_key(privateKey);
 		if(check != 1)
 		{
@@ -162,7 +162,7 @@ int main(int argc, char *argv[])
 
 		printf("Content Size: %i (%4.2f KB)\n", (int)content_len, (float)content_len/1024.0);
 		printf("RSA Keysize: %i, RSA (DER) size: %i\n", RSA_size(privateKey), derlen);
-		printf("Signature Size: %i\n",  sig_len);
+		printf("Signature Size: %i\n", sig_len);
 		printf("Saved extension to %s\n", output_filename);
 
 		// Tie up loose ends
