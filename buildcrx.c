@@ -40,10 +40,10 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
-	int dst_len = strlen(argv[1])-4;
+	int dst_len = strlen(argv[1]);
 	char dst[dst_len];
-	strncpy(dst, argv[1], dst_len);
-	dst[dst_len] = '\0';
+	strncpy(dst, argv[1], dst_len-4);
+	dst[dst_len-4] = '\0';
 	char* filename = (char*) dst;
 
 	// zinput is the zip file to sign and pack into our signed CRX extension package
