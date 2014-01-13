@@ -40,25 +40,20 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
-	int dst_len = strlen(argv[1]);
-	char dst[dst_len];
-	strncpy(dst, argv[1], dst_len-4);
-	dst[dst_len-4] = '\0';
-	char* filename = (char*) dst;
-
 	// zinput is the zip file to sign and pack into our signed CRX extension package
 	FILE *zinput = fopen(argv[1], "rb");
 	if (!zinput) {
 		printf("error opening zip file \"%s\"\n", argv[1]);
 		return 2;
 	} else {
+		char* output_filename;
 		if (argc < 4) {
-			strcat(filename, ".crx");
-			printf("strcat: %s\n", filename);
+			char* filename = strdup(argv[1]);
+			strcpy(filename+strlen(filename)-4, ".crx");
+			output_filename = filename;
 		} else {
-			filename = argv[3];
+			output_filename = argv[3];
 		}
-		char* output_filename = strdup(filename);
 		printf("Extension name is %s, and will be output as %s\n", argv[1], output_filename);
 		FILE *output = fopen(output_filename,"wb");
 
