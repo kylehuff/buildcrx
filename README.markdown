@@ -1,6 +1,6 @@
 buildcrx
 ========
-buildcrx v0.1 Oct 2010
+buildcrx v0.2 Oct 2014
 
 Copyright (c) 2010 Kyle L. Huff
 

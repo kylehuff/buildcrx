@@ -1,5 +1,5 @@
 /***************************************************************************
- * buildcrx v0.1
+ * buildcrx v0.2
  *
  * Copyright (c) 2010 Kyle L. Huff (buildcrx@curetheitch.com)
  *
