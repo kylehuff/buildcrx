@@ -1,3 +1,7 @@
+ifneq (,$(findstring mingw,$(CC)))
+	OS = Windows_NT
+endif
+
 ifeq ($(OS),Windows_NT)
 	DISTDIR=winnt_x86-msvc
 	EXT=.exe
