@@ -32,7 +32,7 @@ To cross-compile this utility for windows on linux using mingw, simply execute:
 
 To build on a windows machine, either modify the makefile to your needs, or in this directory just run:
 
-    gcc -L libs/openssl -I include/openssl/winnt_x86-msvc -g -Wall -o bin/winnt_x86-msvc/buildcrx.exe buildcrx.c -lm -DDEBUG -lcrypto -lgdi32
+    gcc -L libs/openssl/winnt_x86-msvc -I include/openssl -g -Wall -o bin/winnt_x86-msvc/buildcrx.exe buildcrx.c -lm -DDEBUG -lcrypto -lgdi32
 
 Then copy bin/winnt_x86-msvc/buildcrx.exe to where you want to use it.
 
@@ -43,4 +43,4 @@ OpenSSL version 1.0.0a
 
 Compiled linux libraries using gcc with configure flags: "no-idea no-mdc2 no-rc5"
 
-Cross-compiled windows dlls using mingw with configure flags "no-idea no-mdc2 no-rc5 static mingw:i586-mingw32msvc-gcc"
+Cross-compiled windows libs using mingw with configure flags "no-idea no-mdc2 no-rc5 static mingw:i586-mingw32msvc-gcc"
