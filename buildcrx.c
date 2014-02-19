@@ -57,6 +57,11 @@ int main(int argc, char *argv[])
 		printf("Extension name is %s, and will be output as %s\n", argv[1], output_filename);
 		FILE *output = fopen(output_filename,"wb");
 
+		// Initialize OpenSSL
+		OpenSSL_add_all_algorithms();
+		OpenSSL_add_all_ciphers();
+		OpenSSL_add_all_digests();
+
 		// sign the zip file
 		SHA_CTX sha1;
 		byte digest[SHA_DIGEST_LENGTH];
