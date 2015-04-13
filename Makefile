@@ -1,3 +1,4 @@
+CC=g++
 ifneq (,$(findstring mingw,$(CC)))
 	OS = Windows_NT
 endif
@@ -27,11 +28,11 @@ else
 endif
 
 
-buildcrx : buildcrx.c
+buildcrx : buildcrx.cc
 	@set -e; if [ ! -d "${OUTDIR}/${DISTDIR}" ]; then \
 		mkdir -vp ${OUTDIR}/${DISTDIR}; \
 	fi
-	$(CC) $(CFLAGS) -o ${OUTDIR}/${DISTDIR}/buildcrx${EXT} buildcrx.c $(LDFLAGS)
+	$(CC) $(CFLAGS) -o ${OUTDIR}/${DISTDIR}/buildcrx${EXT} buildcrx.cc $(LDFLAGS)
 
 clean:
 	@set -e; echo "cleaning output directories...";
