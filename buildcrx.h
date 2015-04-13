@@ -1,6 +1,10 @@
 #ifndef BUILDCRX_H_
 #define BUILDCRX_H_
 
+#define VERSION_MAJOR   0
+#define VERSION_MINE    4
+#define VERSION_STRING  "0.4"
+
 #include "openssl/rsa.h"
 #include "openssl/pem.h"
 #include "openssl/err.h"

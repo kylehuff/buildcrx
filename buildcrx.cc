@@ -346,6 +346,11 @@ int main(int argc, char *argv[]) {
     return 0;
   }
 
+  if (options[VERSION]) {
+    std::cout << "BuildCRX v" << VERSION_STRING << std::endl;
+    return 0;
+  }
+
   BuildCRX buildcrx;
 
   if (options[VERBOSE].count() > 0) {
