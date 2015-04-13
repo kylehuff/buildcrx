@@ -17,7 +17,7 @@ endif
 
 OUTDIR=bin
 LIBDIR=libs/openssl/${DISTDIR}
-INCLUDE=include/openssl
+INCLUDE=include
 CFLAGS = -L ${LIBDIR} -I ${INCLUDE} -g -Wall
 
 ifeq ($(OS),Windows_NT)
