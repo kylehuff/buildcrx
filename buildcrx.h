@@ -44,7 +44,7 @@ class BuildCRX {
     int writeRSAKey();
     std::string getExtensionID();
 
-    EVP_PKEY* rsakey = NULL;
+    EVP_PKEY* rsakey;
     std::string zip_file;
     std::string output_filename;
     int verbose;

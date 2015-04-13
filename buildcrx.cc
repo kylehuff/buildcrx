@@ -48,6 +48,7 @@ const option::Descriptor usage[] = {
 
 BuildCRX::BuildCRX() {
   verbose = 0;
+  rsakey = NULL;
 }
 
 BuildCRX::~BuildCRX() {
